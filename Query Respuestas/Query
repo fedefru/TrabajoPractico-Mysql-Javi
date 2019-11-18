@@ -1,0 +1,20 @@
+#2 Redacte una consulta que seleccione las sucursales de un barrio determinado.
+select * from sucursales where barrio = 'Fuerte Apache';
+
+#3 Redacte una consulta que seleccione todas las ventas del mes de octubre
+select * from ventas where month(fecha) = 10; 
+
+#4 Redacte una consulta que seleccione todas las ventas que sean mayores a la venta promedio, ordenadas de forma descendente.
+select * from ventas where montototal>(select avg(montototal) from ventas) order by montototal desc; 
+
+#5 Redacte una consulta que muestre las ventas de las sucursales de un barrio determinado, correspondientes al mes de octubre
+select * from ventas where idsucursales = (select idsucursales from sucursales where idsucursales = 3) and month(fecha) = 10;
+
+#6 Redacte una consulta que cuente cuantas sucursales tuvieron ingresos mayores a un monto determinado durante el mes de Septiembre.
+select distinct count(idsucursales) from ventas where montototal > 700 and month(fecha) = 09;
+
+#7 Redacte una consulta que obtenga los ingresos de todas las sucursales durante la primera quincena de noviembre, y las ordene de menor a mayor
+select idsucursales, montototal from ventas where fecha >= '2019-11-01' and fecha <= '2019-11-15' order by montototal asc; 
+
+# o tambien podria ser
+select s.idsucursales, v.montototal from ventas v inner join sucursales s on v.idsucursales = s.idsucursales where v.fecha >= '2019-11-01' and v.fecha <= '2019-11-15' order by montototal asc;
